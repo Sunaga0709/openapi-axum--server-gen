@@ -64,9 +64,6 @@ gen-openapi:
     -g rust-axum \
     -o work/server/openapigen
 
-seeder:
-	docker compose exec app /bin/bash -c './db/scripts/seeder db/seeder'
-
 db-create:
 	docker compose exec app sqlx database create
 
@@ -90,9 +87,3 @@ migrate-down-latest:
 
 migrate-down-all:
 	docker compose exec app sqlx migrate revert --target-version 0 --source db/migrations
-
-migrate-down-specify:
-	docker compose exec app sqlx migrate revert --target-version ${version} --source db/migrations
-
-gen-entity:
-	docker compose exec app sea-orm-cli generate entity -o src/rdb/gen --with-copy-enums --lib --expanded-format
